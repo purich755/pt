@@ -126,7 +126,7 @@ export async function fetchFavoritePlates(userId: number): Promise<Plate[]> {
 
   return (data || [])
     .map((row) => {
-      const plate = row.plates as DbPlate | null;
+     const plate = (row.plates as unknown) as DbPlate | null;
       if (!plate || plate.status !== 'active') return null;
       return mapDbPlate(plate, new Set([plate.id]));
     })
