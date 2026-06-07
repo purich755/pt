@@ -26,9 +26,16 @@
 }
 
 html,
-body {
-  height: 100%;
-  overflow: hidden;
+body,
+#root {
+  min-height: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
 }
 
 @media (hover: hover) {
@@ -134,11 +141,8 @@ button {
 }
 
 .screen {
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
+  flex: 1;
   padding-bottom: calc(var(--nav-h) + var(--safe-bot) + 8px);
-  -webkit-overflow-scrolling: touch;
 }
 
 .section-title {
