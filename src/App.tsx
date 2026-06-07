@@ -7,6 +7,7 @@ import {
   fetchFavoritePlates,
   fetchMyListings,
   fetchPlates,
+  fetchSoldCount,
   toggleFavorite,
   updatePlatePrice,
   upsertUser,
@@ -40,6 +41,7 @@ export default function App() {
   const [loadingFeed, setLoadingFeed] = useState(true);
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [loadingFavs, setLoadingFavs] = useState(true);
+  const [soldCount, setSoldCount] = useState(0);
   const [ready, setReady] = useState(false);
   const [initError, setInitError] = useState('');
 
@@ -104,6 +106,8 @@ export default function App() {
 
       try {
         await upsertUser(tgUser);
+        const sold = await fetchSoldCount(tgUser.id);
+setSoldCount(sold);
         const favIds = await loadFavorites(tgUser.id);
         if (cancelled) return;
 
@@ -247,8 +251,9 @@ export default function App() {
         )}
         {tab === 3 && (
           <ProfileScreen
-            myListings={myListings}
-            loading={loadingProfile || !ready}
+  myListings={myListings}
+  soldCount={soldCount}
+  loading={loadingProfile || !ready}
             tgUser={tgUser}
             onDelete={handleDeleteListing}
             onPriceEdit={handleEditPrice}

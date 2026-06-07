@@ -185,3 +185,12 @@ export async function toggleFavorite(
   if (error) throw error;
   return true;
 }
+export async function fetchSoldCount(userId: number): Promise<number> {
+  const { count, error } = await supabase
+    .from('plates')
+    .select('*', { count: 'exact', head: true })
+    .eq('seller_id', userId)
+    .eq('status', 'sold');
+  if (error) throw error;
+  return count || 0;
+}

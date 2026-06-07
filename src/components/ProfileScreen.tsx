@@ -4,8 +4,9 @@ import { haptic, tgConfirm } from '../lib/telegram';
 import { formatPrice } from '../utils/format';
 import { RuPlate } from './RuPlate';
 
-interface ProfileScreenProps {
+ interface ProfileScreenProps {
   myListings: Plate[];
+  soldCount: number;
   loading: boolean;
   tgUser: TgUser;
   onDelete: (id: string) => Promise<void>;
@@ -14,6 +15,7 @@ interface ProfileScreenProps {
 
 export function ProfileScreen({
   myListings,
+  soldCount,
   loading,
   tgUser,
   onDelete,
@@ -100,23 +102,23 @@ export function ProfileScreen({
           </span>
         )}
         <div className="stat-row">
-          <div className="stat-card">
-            <div className="stat-num">{myListings.length}</div>
-            <div className="stat-lbl">Объявлений</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-num" style={{ color: 'var(--tg-green)' }}>
-              4.9
-            </div>
-            <div className="stat-lbl">Рейтинг</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-num" style={{ color: 'var(--tg-yellow)' }}>
-              12
-            </div>
-            <div className="stat-lbl">Продаж</div>
-          </div>
-        </div>
+  <div className="stat-card">
+    <div className="stat-num">{myListings.length}</div>
+    <div className="stat-lbl">Активных</div>
+  </div>
+  <div className="stat-card">
+    <div className="stat-num" style={{ color: 'var(--tg-green)', fontSize: 14 }}>
+      {myListings.reduce((s, p) => s + p.price, 0).toLocaleString('ru-RU')} ₽
+    </div>
+    <div className="stat-lbl">Сумма</div>
+  </div>
+  <div className="stat-card">
+    <div className="stat-num" style={{ color: 'var(--tg-yellow)' }}>
+      {soldCount}
+    </div>
+    <div className="stat-lbl">Продано</div>
+  </div>
+</div>
       </div>
 
       <p className="section-title">МОИ ОБЪЯВЛЕНИЯ</p>
