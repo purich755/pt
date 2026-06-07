@@ -57,7 +57,7 @@ export function DetailModal({ plate, onClose, onFav }: DetailModalProps) {
           <p style={{ fontWeight: 700, marginBottom: 4, fontSize: 14, color: 'var(--tg-muted)' }}>
             ОПИСАНИЕ
           </p>
-          <p style={{ lineHeight: 1.6 }}>{plate.desc}</p>
+          <p style={{ lineHeight: 1.6, color: '#ffffff' }}>{plate.desc}</p>
         </div>
         <div
           className="card"
