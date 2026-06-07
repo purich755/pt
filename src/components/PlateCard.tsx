@@ -7,9 +7,10 @@ interface PlateCardProps {
   plate: Plate;
   onFav: (id: string) => void;
   onClick: (plate: Plate) => void;
+  onSellerClick?: (sellerId: number) => void;
 }
 
-export function PlateCard({ plate, onFav, onClick }: PlateCardProps) {
+export function PlateCard({ plate, onFav, onClick, onSellerClick }: PlateCardProps) {
   return (
     <div
       className="plate-card"
@@ -44,7 +45,16 @@ export function PlateCard({ plate, onFav, onClick }: PlateCardProps) {
       <p className="plate-desc">{plate.desc}</p>
       <div style={{ marginTop: 8, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
         <span className="badge">🗺️ Регион {plate.region}</span>
-        <span className="badge">👤 {plate.sellerName}</span>
+        <span
+  className="badge"
+  style={{ cursor: 'pointer', color: 'var(--tg-blue)' }}
+  onClick={(e) => {
+    e.stopPropagation();
+    onSellerClick?.(plate.sellerId);
+  }}
+>
+  👤 {plate.sellerName}
+</span>
       </div>
     </div>
   );

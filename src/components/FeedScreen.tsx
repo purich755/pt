@@ -10,6 +10,7 @@ interface FeedScreenProps {
   filters: PlateFilters;
   onFiltersChange: (filters: PlateFilters) => void;
   onFav: (id: string) => void;
+  onSellerClick?: (sellerId: number) => void;
 }
 
 export function FeedScreen({
@@ -18,6 +19,7 @@ export function FeedScreen({
   filters,
   onFiltersChange,
   onFav,
+  onSellerClick,
 }: FeedScreenProps) {
   const [showFilters, setShowFilters] = useState(false);
   const [selected, setSelected] = useState<Plate | null>(null);
@@ -170,11 +172,12 @@ export function FeedScreen({
         ) : (
           plates.map((p) => (
             <PlateCard
-              key={p.id}
-              plate={p}
-              onFav={onFav}
-              onClick={setSelected}
-            />
+  key={p.id}
+  plate={p}
+  onFav={onFav}
+  onClick={setSelected}
+  onSellerClick={onSellerClick}
+/>
           ))
         )}
       </div>

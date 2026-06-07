@@ -194,3 +194,25 @@ export async function fetchSoldCount(userId: number): Promise<number> {
   if (error) throw error;
   return count || 0;
 }
+export async function fetchUserListings(sellerId: number): Promise<Plate[]> {
+  const { data, error } = await supabase
+    .from('plates')
+    .select('*, users(first_name, last_name, username)')
+    .eq('seller_id', sellerId)
+    .eq('status', 'active')
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return (data as DbPlate[]).map((plate) => mapDbPlate(plate, new Set()));
+}
+
+export async function fetchUserById(userId: number) {
+  const { data, error } = await supabase
+    .from('users')
+    .select('*')
+    .eq('id', userId)
+    .single();
+
+  if (error) throw error;
+  return data;
+}

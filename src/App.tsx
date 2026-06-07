@@ -1,3 +1,4 @@
+import { SellerScreen } from './components/SellerScreen';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { NewPlateData, Plate, PlateFilters, TgUser } from './types';
 import {
@@ -19,6 +20,7 @@ import { DetailModal } from './components/DetailModal';
 import { FavScreen } from './components/FavScreen';
 import { FeedScreen } from './components/FeedScreen';
 import { ProfileScreen } from './components/ProfileScreen';
+import { SellerScreen } from './components/SellerScreen';
 
 const EMPTY_FILTERS: PlateFilters = {
   search: '',
@@ -38,6 +40,7 @@ export default function App() {
   const [favoritePlates, setFavoritePlates] = useState<Plate[]>([]);
   const [filters, setFilters] = useState<PlateFilters>(EMPTY_FILTERS);
   const [detailPlate, setDetailPlate] = useState<Plate | null>(null);
+  const [sellerProfileId, setSellerProfileId] = useState<number | null>(null);
   const [loadingFeed, setLoadingFeed] = useState(true);
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [loadingFavs, setLoadingFavs] = useState(true);
@@ -231,14 +234,23 @@ setSoldCount(sold);
   return (
    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
   <div style={{ flex: 1, position: 'relative' }}>
-        {tab === 0 && (
-          <FeedScreen
-            plates={plates}
-            loading={loadingFeed || !ready}
-            filters={filters}
-            onFiltersChange={setFilters}
-            onFav={handleToggleFav}
-          />
+        {tab === 0 && sellerProfileId === null && (
+  <FeedScreen
+    plates={plates}
+    loading={loadingFeed || !ready}
+    filters={filters}
+    onFiltersChange={setFilters}
+    onFav={handleToggleFav}
+    onSellerClick={setSellerProfileId}
+  />
+)}
+{tab === 0 && sellerProfileId !== null && (
+  <SellerScreen
+    sellerId={sellerProfileId}
+    onClose={() => setSellerProfileId(null)}
+    onFav={handleToggleFav}
+  />
+)}
         )}
         {tab === 1 && <AddScreen onAdd={handleAddListing} />}
         {tab === 2 && (
