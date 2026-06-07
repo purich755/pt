@@ -226,7 +226,7 @@ export default function App() {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-      <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+      <div style={{ flex: 1, overflow: 'auto', position: 'relative' }}>
         {tab === 0 && (
           <FeedScreen
             plates={plates}
