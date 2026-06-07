@@ -71,7 +71,7 @@ export function DetailModal({ plate, onClose, onFav }: DetailModalProps) {
           <p style={{ fontWeight: 700, marginBottom: 8, fontSize: 14, color: 'var(--tg-muted)' }}>
             ДЕТАЛИ
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, color: '#ffffff' }}>
             <div>
               <p style={{ fontSize: 12, color: 'var(--tg-muted)' }}>Серия</p>
               <p style={{ fontWeight: 700, fontSize: 16 }}>
