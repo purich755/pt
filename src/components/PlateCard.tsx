@@ -52,6 +52,7 @@ export function PlateCard({ plate, onFav, onClick, onSellerClick }: PlateCardPro
     e.stopPropagation();
     e.preventDefault();
     haptic('light');
+    console.log('seller click', plate.sellerId, onSellerClick);
     if (plate.sellerId) onSellerClick?.(plate.sellerId);
   }}
 >
