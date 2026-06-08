@@ -250,8 +250,7 @@ setSoldCount(sold);
     onFav={handleToggleFav}
   />
 )}
-        )}
-        {tab === 1 && <AddScreen onAdd={handleAddListing} />}
+{tab === 1 && <AddScreen onAdd={handleAddListing} />}
         {tab === 2 && (
           <FavScreen
             plates={favoritePlates}
