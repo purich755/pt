@@ -20,7 +20,6 @@ import { DetailModal } from './components/DetailModal';
 import { FavScreen } from './components/FavScreen';
 import { FeedScreen } from './components/FeedScreen';
 import { ProfileScreen } from './components/ProfileScreen';
-import { SellerScreen } from './components/SellerScreen';
 
 const EMPTY_FILTERS: PlateFilters = {
   search: '',
