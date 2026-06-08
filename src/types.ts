@@ -19,7 +19,7 @@ export interface Plate {
   seller: string;
   sellerName: string;
   fav: boolean;
-  sellerId?: number;
+  sellerId: number;
 }
 
 export interface PlateFilters {

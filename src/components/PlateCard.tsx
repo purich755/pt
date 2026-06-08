@@ -50,7 +50,7 @@ export function PlateCard({ plate, onFav, onClick, onSellerClick }: PlateCardPro
   style={{ cursor: 'pointer', color: 'var(--tg-blue)' }}
   onClick={(e) => {
     e.stopPropagation();
-    onSellerClick?.(plate.sellerId);
+    if (plate.sellerId) onSellerClick?.(plate.sellerId);
   }}
 >
   👤 {plate.sellerName}
