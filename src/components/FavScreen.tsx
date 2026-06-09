@@ -1,3 +1,4 @@
+import { PlateSkeleton } from './Skeleton';
 import type { Plate } from '../types';
 import { PlateCard } from './PlateCard';
 
@@ -22,10 +23,9 @@ export function FavScreen({ plates, loading, onFav, onClick }: FavScreenProps) {
         </p>
       </div>
       {loading ? (
-        <div className="empty-state">
-          <div className="empty-icon">⏳</div>
-          <h3>Загружаем избранное...</h3>
-        </div>
+  <div className="plates-grid">
+    {[0,1,2].map(i => <PlateSkeleton key={i} />)}
+  </div>
       ) : plates.length === 0 ? (
         <div className="empty-state">
           <div className="empty-icon">🤍</div>

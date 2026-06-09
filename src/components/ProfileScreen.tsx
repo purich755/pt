@@ -1,3 +1,4 @@
+import { ListingSkeleton, ProfileSkeleton } from './Skeleton';
 import { useState } from 'react';
 import type { Plate, TgUser } from '../types';
 import { haptic, tgConfirm } from '../lib/telegram';
@@ -71,7 +72,7 @@ export function ProfileScreen({
         <p>Ваши объявления и настройки</p>
       </div>
 
-      <div style={{ textAlign: 'center', padding: '10px 16px 0' }}>
+      {!loading && <div style={{ textAlign: 'center', padding: '10px 16px 0' }}>
         <div className="avatar-circle">
           {tgUser.photoUrl ? (
             <img src={tgUser.photoUrl} alt={fullName} />
@@ -119,15 +120,16 @@ export function ProfileScreen({
     <div className="stat-lbl">Продано</div>
   </div>
 </div>
-      </div>
+      </div>}
 
       <p className="section-title">МОИ ОБЪЯВЛЕНИЯ</p>
 
       {loading ? (
-        <div className="empty-state">
-          <div className="empty-icon">⏳</div>
-          <h3>Загружаем объявления...</h3>
-        </div>
+  <>
+    <ProfileSkeleton />
+    <p className="section-title">МОИ ОБЪЯВЛЕНИЯ</p>
+    {[0,1,2].map(i => <ListingSkeleton key={i} />)}
+  </>
       ) : myListings.length === 0 ? (
         <div className="empty-state">
           <div className="empty-icon">📋</div>

@@ -1,3 +1,4 @@
+import { PlateSkeleton } from './Skeleton';
 import { useEffect, useState } from 'react';
 import type { Plate, PlateFilters } from '../types';
 import { haptic } from '../lib/telegram';
@@ -159,16 +160,16 @@ export function FeedScreen({
 
       <div className="plates-grid">
         {loading ? (
-          <div className="empty-state">
-            <div className="empty-icon">⏳</div>
-            <h3>Загружаем объявления...</h3>
-          </div>
-        ) : plates.length === 0 ? (
-          <div className="empty-state">
-            <div className="empty-icon">🔎</div>
-            <h3>Ничего не найдено</h3>
-            <p>Попробуйте изменить параметры поиска</p>
-          </div>
+          {loading ? (
+  <>
+    {[0,1,2,3].map(i => <PlateSkeleton key={i} />)}
+  </>
+) : plates.length === 0 ? (
+  <div className="empty-state">
+    <div className="empty-icon">🔎</div>
+    <h3>Ничего не найдено</h3>
+    <p>Попробуйте изменить параметры поиска</p>
+  </div>
         ) : (
           plates.map((p) => (
             <PlateCard
