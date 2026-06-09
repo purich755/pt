@@ -24,6 +24,7 @@ export function FeedScreen({
 }: FeedScreenProps) {
   const [showFilters, setShowFilters] = useState(false);
   const [selected, setSelected] = useState<Plate | null>(null);
+  const [sort, setSort] = useState<'date' | 'price_asc' | 'price_desc'>('date');
 
   const updateFilter = <K extends keyof PlateFilters>(key: K, value: PlateFilters[K]) => {
     onFiltersChange({ ...filters, [key]: value });
@@ -53,7 +54,14 @@ export function FeedScreen({
       if (updated) setSelected(updated);
     }
   }, [plates, selected?.id]);
+  const sortedPlates = [...plates].sort((a, b) => {
+    if (sort === 'price_asc') return a.price - b.price;
+    if (sort === 'price_desc') return b.price - a.price;
+    return 0; // date — уже отсортировано сервером
+  });
 
+  return (
+    <div className="screen">
   return (
     <div className="screen">
       <div className="header">
@@ -130,55 +138,65 @@ export function FeedScreen({
         </div>
       )}
 
-      <div
-        style={{
-          padding: '0 16px 8px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <span style={{ fontSize: 13, color: 'var(--tg-muted)', fontWeight: 600 }}>
-          {loading ? 'Загрузка...' : `Найдено: ${plates.length} объявлений`}
-        </span>
-        {hasAdvancedFilters && (
-          <button
-            onClick={resetFilters}
-            style={{
-              background: 'none',
-              color: 'var(--tg-red)',
-              fontSize: 13,
-              fontWeight: 700,
-              border: 'none',
-              cursor: 'pointer',
-            }}
-          >
-            ✕ Сбросить
-          </button>
-        )}
+      <<div style={{ padding: '0 16px 8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+          <span style={{ fontSize: 13, color: 'var(--tg-muted)', fontWeight: 600 }}>
+            {loading ? 'Загрузка...' : `Найдено: ${plates.length} объявлений`}
+          </span>
+          {hasAdvancedFilters && (
+            <button
+              onClick={resetFilters}
+              style={{
+                background: 'none',
+                color: 'var(--tg-red)',
+                fontSize: 13,
+                fontWeight: 700,
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              ✕ Сбросить
+            </button>
+          )}
+        </div>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {(['date', 'price_asc', 'price_desc'] as const).map((s) => (
+            <button
+              key={s}
+              onClick={() => { haptic('light'); setSort(s); }}
+              className="filter-chip"
+              style={sort === s ? {
+                background: 'rgba(42,171,238,0.15)',
+                borderColor: 'var(--tg-blue)',
+                color: 'var(--tg-blue)',
+              } : {}}
+            >
+              {s === 'date' ? '🕐 Новые' : s === 'price_asc' ? '💰 Дешевле' : '💎 Дороже'}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="plates-grid">
         {loading ? (
-          {loading ? (
-  <>
-    {[0,1,2,3].map(i => <PlateSkeleton key={i} />)}
-  </>
-) : plates.length === 0 ? (
-  <div className="empty-state">
-    <div className="empty-icon">🔎</div>
-    <h3>Ничего не найдено</h3>
-    <p>Попробуйте изменить параметры поиска</p>
-  </div>
+          <>
+            {[0,1,2,3].map(i => <PlateSkeleton key={i} />)}
+          </>
+        ) : plates.length === 0 ? (
+          <div className="empty-state">
+            <div className="empty-icon">🔎</div>
+            <h3>Ничего не найдено</h3>
+            <p>Попробуйте изменить параметры поиска</p>
+          </div>
         ) : (
-          plates.map((p) => (
+          sortedPlates.map((p) => (
             <PlateCard
-  key={p.id}
-  plate={p}
-  onFav={onFav}
-  onClick={setSelected}
-  onSellerClick={onSellerClick}
-/>
+              key={p.id}
+              plate={p}
+              onFav={onFav}
+              onClick={setSelected}
+              onSellerClick={onSellerClick}
+            />
           ))
         )}
       </div>
