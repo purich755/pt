@@ -510,3 +510,189 @@ button {
   padding: 14px 16px;
   margin: 0 16px 12px;
 }
+/* ─── Плавные анимации ─── */
+
+/* Появление экранов */
+.screen {
+  animation: screenIn 0.25s ease;
+}
+
+@keyframes screenIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Карточки номеров */
+.plate-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.plate-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.plate-card:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
+
+/* Кнопки */
+.btn-primary {
+  transition: opacity 0.15s ease, transform 0.15s ease, background 0.2s ease;
+}
+
+.btn-secondary {
+  transition: opacity 0.15s ease, transform 0.15s ease, background 0.2s ease;
+}
+
+.btn-secondary:active {
+  opacity: 0.8;
+  transform: scale(0.97);
+}
+
+.btn-danger:active {
+  opacity: 0.8;
+  transform: scale(0.97);
+}
+
+/* Навигация */
+.nav-item {
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.nav-item:active {
+  transform: scale(0.9);
+}
+
+.nav-icon {
+  transition: transform 0.2s ease;
+}
+
+.nav-item.active .nav-icon {
+  transform: scale(1.15);
+}
+
+/* Модальное окно */
+.modal-overlay {
+  animation: overlayIn 0.25s ease;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Фильтры */
+.filter-panel {
+  animation: filterIn 0.2s ease;
+}
+
+@keyframes filterIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Сердечко */
+.heart-btn {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.heart-btn:active {
+  transform: scale(1.4);
+}
+
+/* Бейджи */
+.badge {
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.badge:active {
+  transform: scale(0.95);
+}
+
+/* Аватар */
+.avatar-circle {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.avatar-circle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(42, 171, 238, 0.4);
+}
+
+/* Stat карточки */
+.stat-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Listing items */
+.listing-item {
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  animation: listItemIn 0.25s ease both;
+}
+
+@keyframes listItemIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Плавное появление карточек в ленте */
+.plates-grid .plate-card {
+  animation: cardIn 0.3s ease both;
+}
+
+.plates-grid .plate-card:nth-child(1) { animation-delay: 0.03s; }
+.plates-grid .plate-card:nth-child(2) { animation-delay: 0.06s; }
+.plates-grid .plate-card:nth-child(3) { animation-delay: 0.09s; }
+.plates-grid .plate-card:nth-child(4) { animation-delay: 0.12s; }
+.plates-grid .plate-card:nth-child(5) { animation-delay: 0.15s; }
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
