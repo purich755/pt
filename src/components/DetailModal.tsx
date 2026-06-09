@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import type { Plate } from '../types';
 import { haptic, openTgProfile } from '../lib/telegram';
 import { formatPrice } from '../utils/format';
 import { RuPlate } from './RuPlate';
+import { incrementViews } from '../lib/api';
 
 interface DetailModalProps {
   plate: Plate | null;
@@ -10,6 +12,10 @@ interface DetailModalProps {
 }
 
 export function DetailModal({ plate, onClose, onFav }: DetailModalProps) {
+  useEffect(() => {
+    if (plate) incrementViews(plate.id);
+  }, [plate?.id]);
+
   if (!plate) return null;
 
   return (
@@ -89,6 +95,10 @@ export function DetailModal({ plate, onClose, onFav }: DetailModalProps) {
             <div>
               <p style={{ fontSize: 12, color: 'var(--tg-muted)' }}>Продавец</p>
               <p style={{ fontWeight: 700, fontSize: 16 }}>@{plate.seller}</p>
+            </div>
+            <div>
+              <p style={{ fontSize: 12, color: 'var(--tg-muted)' }}>Просмотры</p>
+              <p style={{ fontWeight: 700, fontSize: 16 }}>👁 {plate.views}</p>
             </div>
           </div>
         </div>

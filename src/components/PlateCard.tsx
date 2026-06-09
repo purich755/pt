@@ -45,6 +45,7 @@ export function PlateCard({ plate, onFav, onClick, onSellerClick }: PlateCardPro
       <p className="plate-desc">{plate.desc}</p>
       <div style={{ marginTop: 8, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
         <span className="badge">🗺️ Регион {plate.region}</span>
+        <span className="badge">👁 {plate.views}</span>
         <button
   className="badge"
   style={{ cursor: 'pointer', color: 'var(--tg-blue)', border: 'none', background: 'var(--tg-surface2)' }}

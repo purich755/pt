@@ -26,6 +26,7 @@ export function mapDbPlate(dbPlate: DbPlate, favoriteIds: Set<string>): Plate {
     sellerName,
     fav: favoriteIds.has(dbPlate.id),
     sellerId: dbPlate.seller_id,
+    views: dbPlate.views || 0,
   };
 }
 
@@ -222,4 +223,7 @@ export async function markAsSold(plateId: string) {
     .update({ status: 'sold' })
     .eq('id', plateId);
   if (error) throw error;
+}
+export async function incrementViews(plateId: string) {
+  await supabase.rpc('increment_views', { plate_id: plateId });
 }
