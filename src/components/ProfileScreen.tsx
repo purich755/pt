@@ -12,6 +12,7 @@ import { RuPlate } from './RuPlate';
   tgUser: TgUser;
   onDelete: (id: string) => Promise<void>;
   onPriceEdit: (id: string, price: number) => Promise<void>;
+  onMarkSold: (id: string) => Promise<void>;
 }
 
 export function ProfileScreen({
@@ -19,8 +20,9 @@ export function ProfileScreen({
   soldCount,
   loading,
   tgUser,
-  onDelete,
+ onDelete,
   onPriceEdit,
+  onMarkSold,
 }: ProfileScreenProps) {
   const [editId, setEditId] = useState<string | null>(null);
   const [newPrice, setNewPrice] = useState('');
@@ -64,7 +66,21 @@ export function ProfileScreen({
       }
     });
   };
-
+  const handleMarkSold = (id: string) => {
+    tgConfirm('Отметить как продано?', async (ok) => {
+      if (!ok) return;
+      try {
+        haptic('success');
+        await onMarkSold(id);
+        setToast('✅ Отмечено как продано!');
+        setTimeout(() => setToast(''), 2500);
+      } catch {
+        haptic('error');
+        setToast('Ошибка');
+        setTimeout(() => setToast(''), 2500);
+      }
+    });
+  };
   return (
     <div className="screen">
       <div className="header">
@@ -206,6 +222,7 @@ export function ProfileScreen({
               )}
             </div>
             {editId !== p.id && (
+             {editId !== p.id && (
               <div className="listing-actions">
                 <button
                   className="btn-secondary"
@@ -217,6 +234,20 @@ export function ProfileScreen({
                   }}
                 >
                   ✏️
+                </button>
+                <button
+                  style={{
+                    padding: '6px 10px',
+                    fontSize: 12,
+                    background: 'rgba(48,209,88,0.15)',
+                    color: 'var(--tg-green)',
+                    borderRadius: 10,
+                    fontWeight: 700,
+                    border: '1.5px solid rgba(48,209,88,0.3)',
+                  }}
+                  onClick={() => handleMarkSold(p.id)}
+                >
+                  ✅
                 </button>
                 <button
                   className="btn-danger"

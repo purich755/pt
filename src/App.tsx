@@ -10,6 +10,7 @@ import {
   fetchPlates,
   fetchSoldCount,
   toggleFavorite,
+  markAsSold,
   updatePlatePrice,
   upsertUser,
 } from './lib/api';
@@ -209,7 +210,15 @@ setSoldCount(sold);
     },
     [refreshAll],
   );
-
+  const handleMarkSold = useCallback(
+    async (id: string) => {
+      await markAsSold(id);
+      const sold = await fetchSoldCount(tgUser.id);
+      setSoldCount(sold);
+      await refreshAll();
+    },
+    [refreshAll, tgUser.id],
+  );
   if (initError) {
     return (
       <div className="screen" style={{ padding: 24 }}>
@@ -261,12 +270,13 @@ setSoldCount(sold);
         )}
         {tab === 3 && (
           <ProfileScreen
-  myListings={myListings}
-  soldCount={soldCount}
-  loading={loadingProfile || !ready}
+            myListings={myListings}
+            soldCount={soldCount}
+            loading={loadingProfile || !ready}
             tgUser={tgUser}
             onDelete={handleDeleteListing}
             onPriceEdit={handleEditPrice}
+            onMarkSold={handleMarkSold}
           />
         )}
       </div>

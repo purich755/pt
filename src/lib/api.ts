@@ -216,3 +216,10 @@ export async function fetchUserById(userId: number) {
   if (error) throw error;
   return data;
 }
+export async function markAsSold(plateId: string) {
+  const { error } = await supabase
+    .from('plates')
+    .update({ status: 'sold' })
+    .eq('id', plateId);
+  if (error) throw error;
+}
