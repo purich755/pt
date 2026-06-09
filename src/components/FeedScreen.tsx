@@ -54,14 +54,13 @@ export function FeedScreen({
       if (updated) setSelected(updated);
     }
   }, [plates, selected?.id]);
+
   const sortedPlates = [...plates].sort((a, b) => {
     if (sort === 'price_asc') return a.price - b.price;
     if (sort === 'price_desc') return b.price - a.price;
-    return 0; // date — уже отсортировано сервером
+    return 0;
   });
 
-  return (
-    <div className="screen">
   return (
     <div className="screen">
       <div className="header">
@@ -138,7 +137,7 @@ export function FeedScreen({
         </div>
       )}
 
-      <<div style={{ padding: '0 16px 8px' }}>
+      <div style={{ padding: '0 16px 8px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
           <span style={{ fontSize: 13, color: 'var(--tg-muted)', fontWeight: 600 }}>
             {loading ? 'Загрузка...' : `Найдено: ${plates.length} объявлений`}
@@ -180,7 +179,7 @@ export function FeedScreen({
       <div className="plates-grid">
         {loading ? (
           <>
-            {[0,1,2,3].map(i => <PlateSkeleton key={i} />)}
+            {[0, 1, 2, 3].map(i => <PlateSkeleton key={i} />)}
           </>
         ) : plates.length === 0 ? (
           <div className="empty-state">
