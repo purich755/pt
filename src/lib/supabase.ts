@@ -91,6 +91,7 @@ export interface DbPlate {
   description: string;
   status: 'active' | 'sold';
   created_at: string;
+   views: number;
   users?: DbUser | DbUser[] | null;
 }
 
