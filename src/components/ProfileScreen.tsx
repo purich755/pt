@@ -209,20 +209,24 @@ export function ProfileScreen({
                     </div>
                   ) : (
                     <>
-                      <p style={{ fontWeight: 700, fontSize: 15 }}>{formatPrice(p.price)}</p>
-                      <p
-                        style={{
-                          color: 'var(--tg-muted)',
-                          fontSize: 12,
-                          marginTop: 2,
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        {p.desc}
-                      </p>
-                    </>
+                     <>
+                  <p style={{ fontWeight: 700, fontSize: 15 }}>{formatPrice(p.price)}</p>
+                  <p
+                    style={{
+                      color: 'var(--tg-muted)',
+                      fontSize: 12,
+                      marginTop: 2,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {p.desc}
+                  </p>
+                  <p style={{ color: 'var(--tg-muted)', fontSize: 11, marginTop: 3 }}>
+                    👁 {p.views} просмотров
+                  </p>
+                </>
                   )}
                 </div>
                 {editId !== p.id && (
