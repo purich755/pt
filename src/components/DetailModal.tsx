@@ -102,6 +102,18 @@ export function DetailModal({ plate, onClose, onFav }: DetailModalProps) {
         >
           💬 Связаться с продавцом
         </button>
+        <button
+          className="btn-secondary"
+          style={{ width: '100%', marginBottom: 10 }}
+          onClick={() => {
+            haptic('light');
+            const text = `🚗 Номер ${plate.letters} ${plate.digits} ${plate.series} | Регион ${plate.region}\n💰 ${formatPrice(plate.price)}\n📝 ${plate.desc}\n👤 Продавец: @${plate.seller}`;
+            const url = `https://t.me/share/url?url=https://t.me/avtonomera_bot&text=${encodeURIComponent(text)}`;
+            window.Telegram?.WebApp?.openLink?.(url);
+          }}
+        >
+          📤 Поделиться
+        </button>
         <button className="btn-secondary" style={{ width: '100%' }} onClick={onClose}>
           Закрыть
         </button>
