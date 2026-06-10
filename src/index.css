@@ -71,7 +71,7 @@ textarea,
 select {
   background: var(--tg-surface2);
   border: 1.5px solid var(--tg-border);
-  color: var(--tg-text);
+  color: #ffffff;
   font-family: 'Nunito', sans-serif;
   font-size: 15px;
   padding: 10px 14px;
